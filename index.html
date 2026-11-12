@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💸 Michel, tenemos que hablar 💸</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Comic Sans MS', cursive, sans-serif;
+    overflow:hidden;
+    min-height:100vh;
+    background:linear-gradient(
+        -45deg,
+        #ff0080,
+        #7928ca,
+        #007cf0,
+        #00dfd8
+    );
+    background-size:400% 400%;
+    animation:fondo 12s ease infinite;
+}
+
+@keyframes fondo{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+
+/* ======================
+   PORTADA
+====================== */
+
+#portada{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(8px);
+}
+
+.portada-contenido{
+
+    text-align:center;
+    width:90%;
+    max-width:500px;
+}
+
+.portada-contenido h1{
+
+    color:white;
+    font-size:clamp(2rem,8vw,4rem);
+    margin-bottom:20px;
+
+    animation:latido 1.5s infinite;
+}
+
+@keyframes latido{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+.portada-contenido p{
+
+    color:white;
+    font-size:clamp(1rem,4vw,1.5rem);
+
+    margin-bottom:30px;
+}
+
+#iniciar{
+
+    width:min(320px,90vw);
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:60px;
+
+    cursor:pointer;
+
+    background:gold;
+
+    font-size:1.2rem;
+
+    font-weight:bold;
+
+    box-shadow:0 0 25px gold;
+
+    animation:brillo 1s infinite;
+}
+
+@keyframes brillo{
+
+    50%{
+        box-shadow:0 0 45px gold;
+    }
+}
+
+/* ======================
+   CONTENIDO
+====================== */
+
+#contenido{
+
+    min-height:100vh;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:15px;
+}
+
+.contenedor{
+
+    width:100%;
+    max-width:900px;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.15);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:25px;
+
+    padding:20px;
+
+    box-shadow:0 0 25px rgba(0,0,0,.3);
+}
+
+.gif{
+
+    width:min(280px,75vw);
+
+    border-radius:20px;
+
+    box-shadow:0 0 25px gold;
+
+    animation:salto 2s infinite;
+}
+
+@keyframes salto{
+
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+h2{
+
+    color:white;
+
+    font-size:clamp(1.5rem,6vw,2.5rem);
+
+    margin-top:15px;
+
+    text-shadow:2px 2px 10px black;
+}
+
+#mensaje{
+
+    margin-top:20px;
+
+    color:white;
+
+    font-size:clamp(1.2rem,4vw,2rem);
+
+    line-height:1.6;
+
+    min-height:150px;
+
+    text-shadow:2px 2px 10px black;
+}
+
+.cursor{
+
+    animation:parpadeo .8s infinite;
+}
+
+@keyframes parpadeo{
+
+    50%{
+        opacity:0;
+    }
+}
+
+/* ======================
+   BILLETES
+====================== */
+
+.billete{
+
+    position:absolute;
+
+    top:-60px;
+
+    font-size:2rem;
+
+    pointer-events:none;
+
+    animation:caer linear forwards;
+}
+
+@keyframes caer{
+
+    to{
+
+        transform:
+        translateY(120vh)
+        rotate(720deg);
+
+        opacity:0;
+    }
+}
+
+/* ======================
+   MÓVILES PEQUEÑOS
+====================== */
+
+@media(max-width:400px){
+
+    .gif{
+        width:210px;
+    }
+
+    #mensaje{
+        font-size:1.1rem;
+    }
+
+    #iniciar{
+
+        width:95vw;
+
+        font-size:1rem;
+
+        padding:16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+
+<audio id="musica" loop>
+    <source src="musicaxd.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="cash">
+    <source src="chaching.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PORTADA -->
+
+<div id="portada">
+
+    <div class="portada-contenido">
+
+        <h1>🤑💸 MICHEL 💸🤑</h1>
+
+        <p>
+            Toca el botón para descubrir
+            un importante comunicado financiero...
+        </p>
+
+        <button id="iniciar">
+            🎵 TOCA AQUÍ MICHEL 🎵
+        </button>
+
+    </div>
+
+</div>
+
+<!-- CONTENIDO -->
+
+<div id="contenido">
+
+    <div class="contenedor">
+
+        <img src="gifxd.gif" class="gif">
+
+        <h2>💰 RECUPERACIÓN DE DINERO 💰</h2>
+
+        <div id="mensaje"></div>
+
+    </div>
+
+</div>
+
+<script>
+
+const texto =
+"Hola Michel, este es un recordatorio de que hoy a las 6 pm en la plaza Camacho para recuperar tu dinero jaja 🤑, puntual, o sino los 60 🙂‍↔️ serán para la causa de un viaje de un pobre viajero 🤣";
+
+const boton =
+document.getElementById("iniciar");
+
+const portada =
+document.getElementById("portada");
+
+const contenido =
+document.getElementById("contenido");
+
+const mensaje =
+document.getElementById("mensaje");
+
+const musica =
+document.getElementById("musica");
+
+const cash =
+document.getElementById("cash");
+
+let indice = 0;
+let reproducido = false;
+
+function escribir(){
+
+    if(indice < texto.length){
+
+        mensaje.innerHTML =
+        texto.substring(0,indice+1)
+        +
+        '<span class="cursor">|</span>';
+
+        let actual =
+        texto.substring(0,indice+1);
+
+        if(
+            actual.includes("60")
+            &&
+            !reproducido
+        ){
+
+            reproducido = true;
+
+            cash.play();
+        }
+
+        indice++;
+
+        setTimeout(escribir,50);
+
+    }else{
+
+        mensaje.innerHTML =
+        texto +
+        "<br><br>💸💰🤑🤣🎉";
+    }
+}
+
+function narrar(){
+
+    if(!window.speechSynthesis){
+        return;
+    }
+
+    const voz =
+    new SpeechSynthesisUtterance(texto);
+
+    voz.lang = "es-ES";
+    voz.rate = 0.92;
+    voz.pitch = 1.15;
+
+    speechSynthesis.speak(voz);
+}
+
+function crearBillete(){
+
+    const emojis =
+    ["💸","💰","💵","🤑"];
+
+    const billete =
+    document.createElement("div");
+
+    billete.className =
+    "billete";
+
+    billete.innerHTML =
+    emojis[
+        Math.floor(
+            Math.random()
+            * emojis.length
+        )
+    ];
+
+    billete.style.left =
+    Math.random()*100 + "vw";
+
+    billete.style.animationDuration =
+    (Math.random()*4 + 4)
+    + "s";
+
+    document.body.appendChild(
+        billete
+    );
+
+    setTimeout(()=>{
+
+        billete.remove();
+
+    },8000);
+}
+
+boton.addEventListener("click",async()=>{
+
+    try{
+
+        await musica.play();
+
+    }catch(error){
+
+        console.log(
+            "Audio bloqueado"
+        );
+    }
+
+    portada.style.display =
+    "none";
+
+    contenido.style.display =
+    "flex";
+
+    narrar();
+
+    escribir();
+
+    setInterval(()=>{
+
+        crearBillete();
+
+    },250);
+
+});
+
+</script>
+
+</body>
+</html>
